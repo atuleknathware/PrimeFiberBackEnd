@@ -1,8 +1,10 @@
-const mongoose=require('mongoose');
-require('dotenv').config();
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+dotenv.config();
+
 const mongo_url=process.env.mongoConnect;
 
-mongoose.connect(mongo_url)
+export default mongoose.connect(mongo_url)
 .then(()=>{
     console.log('MongoDB Connected')
 })

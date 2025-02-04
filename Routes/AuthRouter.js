@@ -1,9 +1,10 @@
-const {Query}=require('../Controllers/AuthController')
-const {QueryFormValidation}=require('../Middlewares/AuthValidation')
+import { addQuery, getAllQuery } from '../Controllers/AuthController.js';
+import { QueryFormValidation } from '../Middlewares/AuthValidation.js';
 
 
-const router=require('express').Router();
+import router from 'express';
 
-router.post('/query',QueryFormValidation,Query);
+export default router.Router()
+    .post('/query', QueryFormValidation, addQuery)
+    .get('/query', getAllQuery);
 
-module.exports=router;
