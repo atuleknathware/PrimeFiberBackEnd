@@ -1,27 +1,29 @@
 import mongoose from 'mongoose';
 
-const Schema=mongoose.Schema;
+const Schema = mongoose.Schema;
 
-const UserSchema=new Schema({
-   Full_Name:{
-        type:String,
-        required:true
+const UserSchema = new Schema({
+    Full_Name: {
+        type: String,
+        required: true
     },
-    Mobile_No:{
-        type:Number,
-        required:true
+    Mobile_No: {
+        type: Number,
+        required: true
     },
-  
-    Email:{
-        type:String,
-        required:true
+    Email: {
+        type: String,
+        required: true
     },
+    Address: {
+        type: String,
+        required: true
+    },
+    Service_Type: {
+        type: String,
+        required: true,
+        enum: ["Home Broadband", "Bandwidth for Business"], // Restricts values
+    }
+});
 
-    Address:{
-        type:String,
-        required:true
-    },
-})
-
- export default mongoose.model('users',UserSchema);
-// module.exports=UserModel;
+export default mongoose.model('users', UserSchema);
