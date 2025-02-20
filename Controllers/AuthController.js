@@ -67,3 +67,5 @@ export const getAllQuery = async (req, res) => {
         });
     }
 };
+
+
