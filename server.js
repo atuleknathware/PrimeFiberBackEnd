@@ -10,6 +10,7 @@ import Homeplan from "./Routes/PlanRoutes.js";
 // import Businessplan from "./Routes/BusinessPlanRoutes.js";
 import user from "./Routes/Userdata.js";
 import Logo from "./Routes/LogoRoute.js";
+import partners from "./Routes/PatnersRoutes.js";
 
 const app = express();
 dotenv.config();  // Ensure dotenv is loaded for environment variables
@@ -41,6 +42,9 @@ connectDB().then(() => {
     app.use('/api/homeplans', Homeplan);
     app.use('/api/user', user);
     app.use('/api/logo', Logo);  
+    app.use('/api/partners', partners);  
+
+    
 
 
     // app.use('/api/businessPlans', Businessplan);

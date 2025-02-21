@@ -47,52 +47,6 @@ export const getSunglelogo = async (req, res) => {
 };
 
 
-
-// export const getonelogo = async (req, res) => {
-//   try {
-//     console.log("getting id",req.params.id);
-//     const id =req.params.id; // Using params to get the ID
-//     const data=await LogoModel.findById(id)
-//     if (!data) {
-//       return res.status(404).json({
-//         message: "logo not found",
-//       });
-//     }
-//     console.log("data",data);
-//      res.status(200).json({
-//       message: "logo fetched successfully",
-//       data,
-//     });
-//   } catch (error) {
-//     return res.status(500).json({
-//       message: "Server error, unable to fetch home plan",
-//       error: error
-//     });
-//   }
-// };
-
-// export const updatelogo = async (req, res) => {
-//   try {
-//     const id=await req.params.id;
-//     const data = await LogoModel.findById(id);
-//     if(!data){
-//       return res.status(401).json({msg:"Logo not found"})
-//     }
-    
-//     const updatedData=await LogoModel.findByIdAndUpdate(id,req.body,{new:true});
-//     res.status(200).json({msg:"Logo updated successfully"});
-//   console.log(updatedData)
-
-//   }
-//     catch(error){
-//      res.status(500).json({error:error})
-//     }
-
-// };
-
-
-// const LogoModel = require("../models/LogoModel");
-
 // Get one logo by ID
 export const getOneLogo = async (req, res) => {
   try {

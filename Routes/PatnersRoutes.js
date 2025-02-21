@@ -2,7 +2,7 @@ import express from 'express';
 import upload from "../Middlewares/Upload.js"; // Correct import
 import { 
   createlogo, getSunglelogo, updateLogo, getOneLogo
-} from '../Controllers/LogoController.js';
+} from '../Controllers/ourPatners.js';
 
 const router = express.Router(); // Correctly instantiate the router
 
