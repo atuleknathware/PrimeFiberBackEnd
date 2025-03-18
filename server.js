@@ -1,40 +1,62 @@
 import express from "express";
 import cors from "cors";
-import AuthRouter from './Routes/AuthRouter.js';
-
-const app = express()
 import dotenv from 'dotenv';
-dotenv.config();
-import mongoConnection from "./Models/db.js"
+import connectDB from './Models/db.js';
+import AuthRouter from './Routes/AuthRouter.js';
+import AdminRoute from './Routes/AdminAuth.js';
+import PlanRoutes from './Routes/PlanRoutes.js';
+import BusinessPlanRoutes from './Routes/BusinessPlanRoutes.js'
+import Homeplan from "./Routes/PlanRoutes.js";
+// import Businessplan from "./Routes/BusinessPlanRoutes.js";
+import user from "./Routes/Userdata.js";
+import Logo from "./Routes/LogoRoute.js";
+import partners from "./Routes/PatnersRoutes.js";
+
+const app = express();
+dotenv.config();  // Ensure dotenv is loaded for environment variables
+
+
+
 
 const PORT = process.env.PORT || 8080;
 
-app.use(express.json());
-app.use(cors());
+// Connect to the database and start the server after the DB connection is successful
+connectDB().then(() => {
+    // Once the DB is connected, use the middlewares
+    app.use(express.json());
+    app.use(cors());
+
+    // Define the route for the landing page
+    app.get('/', (req, res) => {
+        res.send("<h1>Welcome to the Homeplan API</h1>");
+    });
+
+    app.use("/uploads", express.static("uploads"));
 
 
-const htmlContent = `
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple Node.js Server</title>
-</head>
-<body>
-    <h1>Welcome to My Simple Node.js Server</h1>
-    <p>This is a basic HTML page served with Express.</p>
-</body>
-</html>
-`;
+    // API routes
+    app.use('/api', AuthRouter);
+    app.use('/api/admin', AdminRoute);
+    app.use('/api/plans', PlanRoutes);
+    app.use('/api/businessPlans',BusinessPlanRoutes)
+    app.use('/api/homeplans', Homeplan);
+    app.use('/api/user', user);
+    app.use('/api/logo', Logo);  
+    app.use('/api/partners', partners);  
 
-// Define the route for the landing page
-app.get('/', (req, res) => {
-    res.send(htmlContent);
+    
+
+
+    // app.use('/api/businessPlans', Businessplan);
+    
+
+
+    // Start the server
+    app.listen(PORT, () => {
+        console.log(`Server is running on port ${PORT}`);
+    });
+}).catch(err => {
+    // Error handling if DB connection fails
+    console.error("Failed to connect to MongoDB", err);
 });
 
-app.use('/api', AuthRouter)
-
-app.listen(PORT, () => {
-    console.log(`Server is running on ${PORT}`)
-})
