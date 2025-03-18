@@ -1,6 +1,6 @@
 import LogoModel from "../Models/Logo.js";
 
-export const createlogo = async (req, res) => {
+export const createPatnerlogo = async (req, res) => {
   try {
     if (!req.file) {
       return res.status(400).json({ error: "Image file is required" });
@@ -18,7 +18,7 @@ export const createlogo = async (req, res) => {
 
     return res.status(201).json({
       message: "Logo created successfully",
-      logo: data
+      logo: data,
     });
   } catch (error) {
     console.error(error);
@@ -26,29 +26,45 @@ export const createlogo = async (req, res) => {
   }
 };
 
+export const getAllPatnerLogos = async (req, res) => {
+  try {
+    const logos = await LogoModel.find(); // Fetch all logos from DB
 
-export const getSunglelogo = async (req, res) => {
+    if (!logos || logos.length === 0) {
+      return res.status(404).json({ message: "No logos found" });
+    }
+
+    return res.status(200).json({
+      message: "Logos retrieved successfully",
+      data: logos,
+    });
+  } catch (error) {
+    console.error("Error fetching logos:", error);
+    return res.status(500).json({ error: "Failed to fetch logos" });
+  }
+};
+
+export const getSinglepatnerlogo = async (req, res) => {
   try {
     let data = await LogoModel.findOne();
-    if(!data){
-      return res.status(404).json({msg:"Logo data not found"})
+    if (!data) {
+      return res.status(404).json({ msg: "Logo data not found" });
     }
     res.status(200).json({
       message: "Logo fetched successfully",
       // data,
-       data: {img:`http://localhost:8080${data.img}`,_id:data._id}
+      data: { img: `http://localhost:8080${data.img}`, _id: data._id },
     });
   } catch (error) {
-     res.status(500).json({
+    res.status(500).json({
       message: "Server error, unable to fetch Logo",
-      error: error
+      error: error,
     });
   }
 };
 
-
 // Get one logo by ID
-export const getOneLogo = async (req, res) => {
+export const getOnepatnerLogo = async (req, res) => {
   try {
     const logo = await LogoModel.findById(req.params.id);
     if (!logo) {
@@ -61,7 +77,7 @@ export const getOneLogo = async (req, res) => {
 };
 
 // Update logo image
-export const updateLogo = async (req, res) => {
+export const updatepatnerLogo = async (req, res) => {
   console.log("Type of upload:", typeof upload);
   try {
     console.log("Received File:", req.file); // Debug file upload
