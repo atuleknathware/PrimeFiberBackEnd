@@ -1,12 +1,14 @@
 import LogoModel from "../Models/Logo.js";
 
+const app = express();
+dotenv.config(); // Ensure dotenv is loaded for environment variables
 export const createlogo = async (req, res) => {
   try {
     if (!req.file) {
       return res.status(400).json({ error: "Image file is required" });
     }
 
-    const imgPath = `http://localhost:8080/uploads/${req.file.filename}`;
+    const imgPath = `${process.env.SERVER_URL}uploads/${req.file.filename}`;
 
     const data = new LogoModel({
       img: imgPath,
@@ -36,7 +38,7 @@ export const getSunglelogo = async (req, res) => {
     res.status(200).json({
       message: "Logo fetched successfully",
       // data,
-       data: {img:`http://localhost:8080${data.img}`,_id:data._id}
+       data: {img:`${process.env.SERVER_URL}${data.img}`,_id:data._id}
     });
   } catch (error) {
      res.status(500).json({

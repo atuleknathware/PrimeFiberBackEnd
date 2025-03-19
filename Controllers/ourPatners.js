@@ -6,7 +6,7 @@ export const createPatnerlogo = async (req, res) => {
       return res.status(400).json({ error: "Image file is required" });
     }
 
-    const imgPath = `http://localhost:8080/uploads/${req.file.filename}`;
+    const imgPath = `${process.env.SERVER_URL}uploads/${req.file.filename}`;
 
     const data = new LogoModel({
       img: imgPath,
@@ -53,7 +53,7 @@ export const getSinglepatnerlogo = async (req, res) => {
     res.status(200).json({
       message: "Logo fetched successfully",
       // data,
-      data: { img: `http://localhost:8080${data.img}`, _id: data._id },
+      data: { img: `${process.env.SERVER_URL}${data.img}`, _id: data._id },
     });
   } catch (error) {
     res.status(500).json({
