@@ -18,12 +18,32 @@ dotenv.config(); // Ensure dotenv is loaded for environment variables
 
 const PORT = process.env.PORT || 8080;
 
+const allowedOrigins = [
+    'http://localhost:5173', // Replace with your localhost URL and port
+    'http://primenetworks.in/', // Replace with your specific URL
+    'https://primenetworks.in/'
+  ];
+
 // Connect to the database and start the server after the DB connection is successful
 connectDB()
   .then(() => {
     // Once the DB is connected, use the middlewares
     app.use(express.json());
-    app.use(cors());
+    const corsOptions = {
+        origin: function (origin, callback) {
+          // Allow requests with no origin (like mobile apps or curl requests)
+          if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+            callback(null, true);
+          } else {
+            callback(new Error('Not allowed by CORS'));
+          }
+        },
+        methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed HTTP methods
+        allowedHeaders: ['Content-Type', 'Authorization'], // Allowed headers
+        credentials: true // Enable cookies and authorization headers
+      };
+
+    app.use(cors(corsOptions));
 
     // Define the route for the landing page
     app.get("/", (req, res) => {
