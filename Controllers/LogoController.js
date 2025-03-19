@@ -118,7 +118,7 @@ export const updateLogo = async (req, res) => {
     }
 
     const logoId = req.params.id;
-    const imagePath = `/uploads/${req.file.filename}`; // Path to store in DB
+    const imagePath = `uploads/${req.file.filename}`; // Path to store in DB
 
     // Update logo in the database
     await LogoModel.findByIdAndUpdate(logoId, { img: imagePath });
