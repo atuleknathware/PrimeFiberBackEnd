@@ -43,7 +43,8 @@ connectDB()
         credentials: true // Enable cookies and authorization headers
       };
 
-    app.use(cors(corsOptions));
+    //   app.use(cors(corsOptions));
+      app.use(cors());
 
     // Define the route for the landing page
     app.get("/", (req, res) => {
