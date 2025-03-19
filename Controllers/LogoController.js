@@ -1,6 +1,5 @@
 import LogoModel from "../Models/Logo.js";
 
-const app = express();
 dotenv.config(); // Ensure dotenv is loaded for environment variables
 export const createlogo = async (req, res) => {
   try {
