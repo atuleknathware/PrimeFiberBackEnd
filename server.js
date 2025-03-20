@@ -54,9 +54,9 @@ connectDB()
       app.use(cors());
 
     // Define the route for the landing page
-    // app.get("/", (req, res) => {
-    //   res.send("<h1>Welcome to the Homeplan API</h1>");
-    // });
+    app.get("/api/hello", (req, res) => {
+      res.send("<h1>Welcome to the Homeplan API</h1>");
+    });
 
     app.use("/uploads", express.static("uploads"));
 
