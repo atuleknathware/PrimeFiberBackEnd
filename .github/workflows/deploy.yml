@@ -27,6 +27,7 @@ jobs:
             [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
             nvm use 16
             cd /root/PrimeFiberBackEnd
+            ssh-keyscan -H github.com >> ~/.ssh/known_hosts
             git pull origin main
             npm install
             pm2 restart server.js
