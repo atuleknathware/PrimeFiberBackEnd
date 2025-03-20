@@ -12,10 +12,17 @@ import user from "./Routes/Userdata.js";
 import Logo from "./Routes/LogoRoute.js";
 import partners from "./Routes/PatnersRoutes.js";
 import mobileRoute from "./Routes/mobileRoute.js";
+import path from 'path';
 
 const app = express();
 dotenv.config(); // Ensure dotenv is loaded for environment variables
 
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+app.use(express.static(path.join(__dirname, 'build')));
 const PORT = process.env.PORT || 8080;
 
 const allowedOrigins = [
@@ -47,9 +54,9 @@ connectDB()
       app.use(cors());
 
     // Define the route for the landing page
-    app.get("/", (req, res) => {
-      res.send("<h1>Welcome to the Homeplan API</h1>");
-    });
+    // app.get("/", (req, res) => {
+    //   res.send("<h1>Welcome to the Homeplan API</h1>");
+    // });
 
     app.use("/uploads", express.static("uploads"));
 
@@ -63,6 +70,11 @@ connectDB()
     app.use("/api/logo", Logo);
     app.use("/api/partners", partners);
     app.use("/api/mobileno", mobileRoute);
+
+
+    app.get('*', (req, res) => {
+      res.sendFile(path.join(__dirname, 'build', 'index.html'));
+    });
 
     // app.use('/api/businessPlans', Businessplan);
 
