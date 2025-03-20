@@ -55,7 +55,7 @@ connectDB()
 
     // Define the route for the landing page
     app.get("/api/hello", (req, res) => {
-      res.send("<h1>Welcome to the Homeplan API</h1>");
+      res.send("<h1>Welcome to the Homeplan API New</h1>");
     });
 
     app.use("/uploads", express.static("uploads"));
